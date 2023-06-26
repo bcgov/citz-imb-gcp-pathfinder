@@ -1,10 +1,15 @@
-const express = require('express');
-const app = express();
+import express, { Express, Request, Response } from 'express';
+import dotenv from 'dotenv';
 
-const port = process.env.PORT || 5050;
+dotenv.config();
 
+const app: Express = express();
+const port = process.env.PORT || 8080;
 
-app.listen(port, (err) => {
-    if (err) console.log(err);
-    console.info (`Server started on port ${port}`)
-})
+app.get('/api', (req: Request, res: Response) => {
+  res.send('Healthy');
+});
+
+app.listen(port, () => {
+  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+});
