@@ -17,7 +17,7 @@ RUN npm i -D typescript@5.0.4
 # Complete JavaScript Build
 RUN npm run build
 
-
+# Prod Build
 FROM node:18-alpine as prod
 ENV NODE_ENV=production
 
