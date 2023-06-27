@@ -33,4 +33,3 @@ EXPOSE 80
 
 # Run Nginx server
 CMD ["nginx", "-g", "daemon off;"]
- 
