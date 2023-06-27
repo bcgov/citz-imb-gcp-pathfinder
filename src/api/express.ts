@@ -11,6 +11,3 @@ app.use(cors());
 app.use("/api/healthcheck", healthCheck);
 
 export default app;
-
-
-
