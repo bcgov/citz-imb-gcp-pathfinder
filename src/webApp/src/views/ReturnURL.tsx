@@ -7,9 +7,10 @@ function ReturnURL () {
         <div>
             <Spinner />
             <h2>You have deployed you application to BCGov google cloud!</h2> 
-            <p> Make sure you save the URL before changing applications</p>   
+            <br/>
+            <p> Make sure you <b>save the URL</b> before exiting page</p>   
             <p>Public URL: 
-                <Link to={'https://google.com'} >http://google.com</Link>
+                <Link to={'https://google.com'} target="_blank" rel="noopener noreferrer"  > http://yourURL.com</Link>
             </p>
         </div>
         </>

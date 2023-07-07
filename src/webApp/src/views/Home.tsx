@@ -25,7 +25,7 @@ function Home() {
   */
   async function submitForm(event: React.FormEvent<HTMLFormElement>){
     event.preventDefault();
-    navigate('/info')
+    navigate('/returnURL')
   }
 
   return (
@@ -38,7 +38,7 @@ function Home() {
       <div className="card">
         <form onSubmit={((e) =>submitForm(e))}>
         
-        <label >  Enter Name: 
+        <label >  Enter Your Name: 
           </label>
           <br/> 
           <input 
@@ -71,7 +71,7 @@ function Home() {
           
           <br/>
           <br/>
-          <label >  Enter Access Code: 
+          <label >  Enter Your Access Code: 
           </label>
           <br/> 
           <input 

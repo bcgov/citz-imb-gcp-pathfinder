@@ -23,8 +23,9 @@ function Header () {
             <div style={{
                 position: "absolute",
                 right: "5%",
-                top: "20px",
-                color: "white"
+                top: "15px",
+                color: "white", 
+                fontSize: "20px",
             }}>
                 <Link to={'/'} style={{color: "white"}}>Home </Link>
                  | 
