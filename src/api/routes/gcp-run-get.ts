@@ -29,8 +29,9 @@ const router = express.Router();
 
 
 router.get('/', async (req: Request, res: Response) => {
- 
-    const name = 'projects/bkzge7-dev/locations/us-central1/services/test-cloud-run-repository'
+  const { serviceName } = req.query
+  
+    const name = 'projects/bkzge7-dev/locations/us-central1/services/' + serviceName
   
     // Imports the Run library
     const {ServicesClient} = require('@google-cloud/run').v2;
@@ -46,10 +47,10 @@ router.get('/', async (req: Request, res: Response) => {
         };
         // Run request
         const response = await runClient.getService(request);
-        return res.json({status: '200', response: response[0]})
+        return res.json({status: 200, response: response[0]})
      }catch(err){
         console.log(err)
-            return res.json({status: '200', response: "no service"});
+            return res.json({status: 400, response: "no service"});
       }
 
 })

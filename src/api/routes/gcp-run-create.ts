@@ -30,7 +30,7 @@ const router = express.Router();
 
 
 router.post('/', async (req: Request, res: Response) => {
- 
+    const { description, image, id} = req.query;
     /**
    *  Required. The location and project in which this service should be created.
    *  Format: projects/{project}/locations/{location}, where {project} can be
@@ -42,7 +42,7 @@ router.post('/', async (req: Request, res: Response) => {
    */
    const service = {
     name: "",
-    description: "Create a new service",
+    description: description,
     labels: { },
     annotations: { },
     client: "gcloud",
@@ -62,7 +62,7 @@ router.post('/', async (req: Request, res: Response) => {
         containers: [
             {
                 name: "",
-                image: "us-central1-docker.pkg.dev/bkzge7-dev/cloud-run-source-deploy/test-cloud-run-repository/test-cloud-run-repository:1bf02a6f710726ae682134a91df91df6237a8bd8",
+                image: image , //"us-central1-docker.pkg.dev/bkzge7-dev/cloud-run-source-deploy/test-cloud-run-repository/test-cloud-run-repository:1bf02a6f710726ae682134a91df91df6237a8bd8"
                 command: [],
                 args: [],
                 env: [],
@@ -112,7 +112,7 @@ router.post('/', async (req: Request, res: Response) => {
    *  and cannot end with hyphen; must contain fewer than 50 characters.
    *  The name of the service becomes {parent}/services/{service_id}.
    */
-  const serviceId = 'new-service1'
+  const serviceId = id
   
   const {ServicesClient} = require('@google-cloud/run').v2;
 
