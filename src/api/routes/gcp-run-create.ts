@@ -36,7 +36,7 @@ router.post('/', async (req: Request, res: Response) => {
    *  Format: projects/{project}/locations/{location}, where {project} can be
    *  project id or number. Only lowercase characters, digits, and hyphens.
    */
-   const parent = 'projects/bkzge7-dev/locations/us-central1'
+   const parent = 'projects/bkzge7-dev/locations/northamerica-northeast2'
   /**
    *  Required. The Service instance to create.
    */
