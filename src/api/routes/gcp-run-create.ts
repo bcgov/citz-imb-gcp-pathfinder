@@ -58,11 +58,11 @@ router.post('/', async (req: Request, res: Response) => {
              maxInstanceCount: 80
         },
         timeout: { seconds: '300', nanos: 0 },
-        serviceAccount: "55162061854-compute@developer.gserviceaccount.com",
+        serviceAccount: process.env.SERVICE_ACCOUNT,
         containers: [
             {
                 name: "",
-                image: image , //"us-central1-docker.pkg.dev/bkzge7-dev/cloud-run-source-deploy/test-cloud-run-repository/test-cloud-run-repository:1bf02a6f710726ae682134a91df91df6237a8bd8"
+                image: image , 
                 command: [],
                 args: [],
                 env: [],
