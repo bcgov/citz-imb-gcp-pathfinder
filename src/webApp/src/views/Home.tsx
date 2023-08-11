@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const [dockerFile, setDockerFile] = useState("");
   const [accessCode, setAccessCode] = useState("");
   const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
   const [splitDockerName, setSplitDockerName] = useState("");
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   /**
   * @description Used to save dockerfile and remove path recieved in input.
@@ -25,7 +27,15 @@ function Home() {
   */
   async function submitForm(event: React.FormEvent<HTMLFormElement>){
     event.preventDefault();
-    navigate('/returnURL')
+    const req = await fetch (process.env.API_URL + "/gcp/create?" + "description=" + description + "&image=" + image + "&id=" + accessCode, 
+    {
+      method: "POST",
+
+    }); 
+    const data = await req.json()
+    console.log(data.status)
+    console.log(data.uri)
+    //navigate('/returnURL')
   }
 
   return (
@@ -50,7 +60,19 @@ function Home() {
           <br/>
           <br/>
           <br/>
-          
+
+          <label >  Enter Your Container Image Link: 
+          </label>
+          <br/> 
+          <input 
+            type="text" 
+            value={image} 
+            style={{ }} 
+            onChange={((e) => setImage(e.target.value))}
+          />
+          <br/>
+          <br/>
+          <br/>
           <label style={{
             backgroundColor: "#e0e0e0", 
             padding: "10px 17px", 
@@ -68,7 +90,18 @@ function Home() {
           <br/>
           <br/>
           {splitDockerName}
-          
+          <br/>
+          <br/>
+          <label >  Enter Your App Description: 
+          </label>
+          <br/> 
+          <input 
+            type="text" 
+            value={description} 
+            style={{ }} 
+            onChange={((e) => setDescription(e.target.value))}
+          />
+          <br/>
           <br/>
           <br/>
           <label >  Enter Your Access Code: 
