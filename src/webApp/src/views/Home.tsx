@@ -54,7 +54,7 @@ function Home() {
           <input 
             type="text" 
             value={name} 
-            style={{ }} 
+            style={{ minWidth: "250px", textAlign: 'right'}} 
             onChange={((e) => setName(e.target.value))}
           />
           <br/>
@@ -67,7 +67,7 @@ function Home() {
           <input 
             type="text" 
             value={image} 
-            style={{ }} 
+            style={{  minWidth: "250px"}} 
             onChange={((e) => setImage(e.target.value))}
           />
           <br/>
@@ -81,7 +81,7 @@ function Home() {
             <input 
               type="file"
               value={dockerFile}
-              style={{display: "none"}}
+              style={{display: "none",  minWidth: "250px"}}
               onChange={((e) => saveDockerFile(e))}
             />
             {splitDockerName ? ("Change "):("Add ")}
@@ -98,7 +98,7 @@ function Home() {
           <input 
             type="text" 
             value={description} 
-            style={{ }} 
+            style={{  minWidth: "250px"}} 
             onChange={((e) => setDescription(e.target.value))}
           />
           <br/>
@@ -110,7 +110,7 @@ function Home() {
           <input 
             type="text" 
             value={accessCode} 
-            style={{ }} 
+            style={{  minWidth: "250px"}} 
             onChange={((e) => setAccessCode(e.target.value))}
           />
           <br/>
