@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import logo from '/bcGovLogo.svg'
+
 
 function Header () {
     return (
@@ -14,10 +16,21 @@ function Header () {
         }}>
             <div style={{
                 maxWidth: "200px", 
-                marginLeft: '10%'
+                marginLeft: '5%'
             }}>
                 <img src={logo} />
-                </div>
+            </div>
+            <div style={{
+                position: "absolute",
+                right: "5%",
+                top: "15px",
+                color: "white", 
+                fontSize: "20px",
+            }}>
+                <Link to={'/'} style={{color: "white"}}>Home </Link>
+                 | 
+                <Link to={'/info'} style={{color: "white"}}> Info</Link>
+            </div>
         </div>
         </>
     )
