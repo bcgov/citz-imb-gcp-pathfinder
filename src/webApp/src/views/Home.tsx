@@ -113,7 +113,7 @@ function Home() {
             onChange={((e) => setPort(e.target.value))}
           />
           <br/>
-
+          <br/>
           <br/>
           <label >  Enter Your App Description: 
           </label>
@@ -127,9 +127,13 @@ function Home() {
           <br/>
           <br/>
           <br/>
-          <label >  Enter Your Access Code: 
+          <label >  Enter Your desired name: 
+          <div style={{color: "#888"}}>
+          Only lowercase letters and "-" allowed
+      </div>
           </label>
-          <br/> 
+          
+
           <input 
             type="text" 
             value={accessCode} 
