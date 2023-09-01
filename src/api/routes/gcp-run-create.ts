@@ -30,7 +30,7 @@ const router = express.Router();
 
 
 router.post('/', async (req: Request, res: Response) => {
-    const { description, image, id} = req.query;
+    const { description, image, id, port} = req.query;
     /**
    *  Required. The location and project in which this service should be created.
    *  Format: projects/{project}/locations/{location}, where {project} can be
@@ -74,7 +74,7 @@ router.post('/', async (req: Request, res: Response) => {
                 ports: [
                   {
                     name:"http1",
-                    containerPort:8080
+                    containerPort:port
                   }
                 ],
                 volumeMounts: [],
@@ -85,7 +85,7 @@ router.post('/', async (req: Request, res: Response) => {
                     timeoutSeconds:240,
                     periodSeconds:240,
                     failureThreshold:3,
-                    tcpSocket:{"port":8080},
+                    tcpSocket:{"port": port},
                     probeType:"tcpSocket"}
             }
         ],
@@ -129,9 +129,14 @@ router.post('/', async (req: Request, res: Response) => {
     // Run request
     const [operation] = await runClient.createService(request);
     const [response] = await operation.promise();
-    return res.json({status: "200", response: response, uri:  response.uri})
+    if(response.uri){
+      return res.json({status: "200", response: response})
+    }else{
+      return res.json({status: "400", response: response})
+    }
+    
   }catch{
-    return res.json({status: "400", response: "unable to create application"})
+    return res.json({status: "400", response: "make sure Image link and Port Number are correct"})
   }
 })
 

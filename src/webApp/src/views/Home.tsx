@@ -1,25 +1,19 @@
 import React, { useState } from 'react'
-//import { useNavigate } from 'react-router-dom';
+import ReturnURL from './ReturnURL';
+import "../components/spinner.css"
 
 function Home() {
-  const [dockerFile, setDockerFile] = useState("");
   const [accessCode, setAccessCode] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [splitDockerName, setSplitDockerName] = useState("");
+  const [uri, setUri] = useState("");
+  const [port, setPort] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   //const navigate = useNavigate();
 
-  /**
-  * @description Used to save dockerfile and remove path recieved in input.
-  * @param {React.ChangeEvent}     e event from HTML input element
-  */
-  async function saveDockerFile(e: React.ChangeEvent<HTMLInputElement>){
-    setDockerFile(e.target.value)
-    const splitArray = (e.target.value).split("\\");
-    setSplitDockerName(splitArray[splitArray.length - 1])
-  }
-  
+
 
   /**
   * @description Submit form, and redirect.
@@ -27,19 +21,55 @@ function Home() {
   */
   async function submitForm(event: React.FormEvent<HTMLFormElement>){
     event.preventDefault();
-    const req = await fetch (process.env.API_URL + "/gcp/create?" + "description=" + description + "&image=" + image + "&id=" + accessCode, 
+    setLoading(true);
+    const req = await fetch ("http://localhost:5050/" + "api/gcp/create?" + "description=" + description + "&image=" + image + "&id=" + accessCode + "&port=" + port, 
     {
       method: "POST",
 
     }); 
     const data = await req.json()
-    console.log(data.status)
-    console.log(data.uri)
-    //navigate('/returnURL')
+    setLoading(false)
+    if(data.status == "200"){
+      console.log("here")
+
+      setUri(data.response.uri)
+
+    }else{
+      setLoading(false)
+
+      setError(data.response)
+
+    }
+
+    
+    
+
   }
 
   return (
-    <>
+    <>{uri?
+      (
+        <>
+          <ReturnURL uri={uri}/>
+        </>
+      ):
+      (
+        
+      <>
+      
+        <div>
+            {loading ? (
+                <div className="spinner-container">
+                    <div className="loading-spinner">
+
+                    </div>
+                 </div>
+            ):(
+               <></>
+            )}
+        </div>
+        <br/>
+        {error? (<div style={{backgroundColor: '#FFCCCC', minHeight:'20px' }}><p>There was an error creating your intance: {error}</p> </div>):(<></>)}
       <h1>Docker Deploy</h1>
       <p className="read-the-docs">
         Insert your docker file to deploy it to google cloud
@@ -73,24 +103,17 @@ function Home() {
           <br/>
           <br/>
           <br/>
-          <label style={{
-            backgroundColor: "#e0e0e0", 
-            padding: "10px 17px", 
-            borderRadius: "5px"
-          }}>
-            <input 
-              type="file"
-              value={dockerFile}
-              style={{display: "none",  minWidth: "250px"}}
-              onChange={((e) => saveDockerFile(e))}
-            />
-            {splitDockerName ? ("Change "):("Add ")}
-             Docker File
+          <label >  Enter The Port Specified in your Container: 
           </label>
+          <br/> 
+          <input 
+            type="text" 
+            value={port} 
+            style={{  minWidth: "250px"}} 
+            onChange={((e) => setPort(e.target.value))}
+          />
           <br/>
-          <br/>
-          {splitDockerName}
-          <br/>
+
           <br/>
           <label >  Enter Your App Description: 
           </label>
@@ -122,12 +145,13 @@ function Home() {
             submit
           </button>
         </form>
-        <br/>
+
         <p className="read-the-docs">
         Once you submit, wait 1 - 3 minutes for a http link to be returned to you
       </p>
         
       </div>
+      </>)}
       
       </>
   )
